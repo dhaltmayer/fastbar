@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		83D3ED1218DE09A700D813DD /* FBProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D3ED1118DE09A700D813DD /* FBProduct.m */; };
 		83F247EE18DD63F8007ACCCB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F247ED18DD63F8007ACCCB /* Foundation.framework */; };
 		83F247F018DD63F8007ACCCB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F247EF18DD63F8007ACCCB /* CoreGraphics.framework */; };
 		83F247F218DD63F8007ACCCB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F247F118DD63F8007ACCCB /* UIKit.framework */; };
@@ -22,6 +23,7 @@
 		83F2481218DD63F8007ACCCB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F247F118DD63F8007ACCCB /* UIKit.framework */; };
 		83F2481A18DD63F8007ACCCB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 83F2481818DD63F8007ACCCB /* InfoPlist.strings */; };
 		83F2481C18DD63F8007ACCCB /* FastBarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F2481B18DD63F8007ACCCB /* FastBarTests.m */; };
+		A89E3CC7A280412FA5AEF657 /* libPods-FastBar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC72DB564BC846F4991147CD /* libPods-FastBar.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		83D3ED1018DE09A700D813DD /* FBProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBProduct.h; sourceTree = "<group>"; };
+		83D3ED1118DE09A700D813DD /* FBProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBProduct.m; sourceTree = "<group>"; };
 		83F247EA18DD63F8007ACCCB /* FastBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FastBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83F247ED18DD63F8007ACCCB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		83F247EF18DD63F8007ACCCB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -56,6 +60,8 @@
 		83F2481718DD63F8007ACCCB /* FastBarTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FastBarTests-Info.plist"; sourceTree = "<group>"; };
 		83F2481918DD63F8007ACCCB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		83F2481B18DD63F8007ACCCB /* FastBarTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FastBarTests.m; sourceTree = "<group>"; };
+		9E3B48BD90914EA7BABFF787 /* Pods-FastBar.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastBar.xcconfig"; path = "Pods/Pods-FastBar.xcconfig"; sourceTree = "<group>"; };
+		EC72DB564BC846F4991147CD /* libPods-FastBar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FastBar.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +72,7 @@
 				83F247F018DD63F8007ACCCB /* CoreGraphics.framework in Frameworks */,
 				83F247F218DD63F8007ACCCB /* UIKit.framework in Frameworks */,
 				83F247EE18DD63F8007ACCCB /* Foundation.framework in Frameworks */,
+				A89E3CC7A280412FA5AEF657 /* libPods-FastBar.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +96,7 @@
 				83F2481518DD63F8007ACCCB /* FastBarTests */,
 				83F247EC18DD63F8007ACCCB /* Frameworks */,
 				83F247EB18DD63F8007ACCCB /* Products */,
+				9E3B48BD90914EA7BABFF787 /* Pods-FastBar.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -108,6 +116,7 @@
 				83F247EF18DD63F8007ACCCB /* CoreGraphics.framework */,
 				83F247F118DD63F8007ACCCB /* UIKit.framework */,
 				83F2480F18DD63F8007ACCCB /* XCTest.framework */,
+				EC72DB564BC846F4991147CD /* libPods-FastBar.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -122,6 +131,8 @@
 				83F2480318DD63F8007ACCCB /* FirstViewController.m */,
 				83F2480518DD63F8007ACCCB /* SecondViewController.h */,
 				83F2480618DD63F8007ACCCB /* SecondViewController.m */,
+				83D3ED1018DE09A700D813DD /* FBProduct.h */,
+				83D3ED1118DE09A700D813DD /* FBProduct.m */,
 				83F2480818DD63F8007ACCCB /* Images.xcassets */,
 				83F247F418DD63F8007ACCCB /* Supporting Files */,
 			);
@@ -164,9 +175,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 83F2481F18DD63F8007ACCCB /* Build configuration list for PBXNativeTarget "FastBar" */;
 			buildPhases = (
+				9802E7EE920F44358D0726EB /* Check Pods Manifest.lock */,
 				83F247E618DD63F8007ACCCB /* Sources */,
 				83F247E718DD63F8007ACCCB /* Frameworks */,
 				83F247E818DD63F8007ACCCB /* Resources */,
+				68D8A570F2AC44CF9D146858 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -252,6 +265,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		68D8A570F2AC44CF9D146858 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-FastBar-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9802E7EE920F44358D0726EB /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		83F247E618DD63F8007ACCCB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -260,6 +306,7 @@
 				83F2480718DD63F8007ACCCB /* SecondViewController.m in Sources */,
 				83F247FE18DD63F8007ACCCB /* AppDelegate.m in Sources */,
 				83F2480418DD63F8007ACCCB /* FirstViewController.m in Sources */,
+				83D3ED1218DE09A700D813DD /* FBProduct.m in Sources */,
 				83F247FA18DD63F8007ACCCB /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,6 +431,7 @@
 		};
 		83F2482018DD63F8007ACCCB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E3B48BD90914EA7BABFF787 /* Pods-FastBar.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -400,6 +448,7 @@
 		};
 		83F2482118DD63F8007ACCCB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E3B48BD90914EA7BABFF787 /* Pods-FastBar.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -473,6 +522,7 @@
 				83F2482118DD63F8007ACCCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		83F2482218DD63F8007ACCCB /* Build configuration list for PBXNativeTarget "FastBarTests" */ = {
 			isa = XCConfigurationList;
@@ -481,6 +531,7 @@
 				83F2482418DD63F8007ACCCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

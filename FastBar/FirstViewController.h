@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController
+@interface FirstViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate>
+
+@property (strong,nonatomic) IBOutlet UITableView *tableView;
+@property (strong,nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end
