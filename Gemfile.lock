@@ -29,6 +29,9 @@ GEM
     ansi (1.4.3)
     arel (4.0.2)
     atomic (1.1.16)
+    bcrypt (3.1.7)
+    bcrypt-ruby (3.1.5)
+      bcrypt (>= 3.1.3)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -44,6 +47,12 @@ GEM
       execjs
     coffee-script-source (1.7.0)
     debug_inspector (0.0.2)
+    devise (3.2.3)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      thread_safe (~> 0.1)
+      warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.0.2)
     figaro (0.7.0)
@@ -66,8 +75,11 @@ GEM
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.9.2)
+    orm_adapter (0.5.0)
     pg (0.17.1)
     polyglot (0.3.4)
+    protected_attributes (1.0.5)
+      activemodel (>= 4.0.1, < 5.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -127,6 +139,8 @@ GEM
     uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    warden (1.2.3)
+      rack (>= 1.0)
 
 PLATFORMS
   ruby
@@ -135,11 +149,13 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   coffee-rails (~> 4.0.0)
+  devise
   figaro
   jbuilder (~> 1.2)
   jquery-rails
   launchy
   pg
+  protected_attributes
   rails (= 4.0.4)
   rails_12factor
   sass-rails (~> 4.0.2)
