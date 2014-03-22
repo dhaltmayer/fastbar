@@ -46,18 +46,16 @@
 -(void)addProductToCart:(FBProduct*)prod
 {
     // Try to find existing prod in O(n) yay
-    NSArray *selections = [self.cart bk_select:^BOOL(NSArray *arr) {
-        FBProduct *firstProd = arr[0];
-        return [firstProd.name isEqualToString:prod.name];
+    NSArray *existing = [self.cart bk_select:^BOOL(FBProduct *p) {
+        return [p.name isEqualToString:prod.name];
     }];
     
-    if (selections.count == 0) {
+    if (existing.count == 0) {
         // Not found, we should add
-        NSArray *newProdArray = [[NSMutableArray alloc] initWithObjects:prod, nil];
-        [self.cart addObject:newProdArray];
+        [self.cart addObject:prod];
     } else {
-        NSMutableArray *selection = selections[0];
-        [selection addObject:prod];
+        FBProduct *p = existing[0];
+        p.quantity += 1;
     }
     
     [self.tableView reloadData];
@@ -73,10 +71,8 @@
 
     __block NSInteger price = 0;
     
-    [self.cart bk_each:^(NSArray *selection) {
-        [selection bk_each:^(FBProduct *prod) {
-            price += prod.price;
-        }];
+    [self.cart bk_each:^(FBProduct *p) {
+        price += p.quantity * p.price;
     }];
 
     [self.cartDetails setText:[NSString stringWithFormat:@"$%d", price/100]];
@@ -114,19 +110,18 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CartCell" forIndexPath:indexPath];
     
-    NSArray *prods = self.cart[indexPath.row];
-    FBProduct *prod = prods[0];
+    FBProduct *prod = self.cart[indexPath.row];
     
     UILabel *nameLabel = (UILabel*)[cell viewWithTag:100];
     UILabel *priceLabel = (UILabel*)[cell viewWithTag:300];
 
     NSString *name = prod.name;
-    if (prods.count > 1) {
-        name = [NSString stringWithFormat:@"%dx %@", prods.count, prod.name];
+    if (prod.quantity > 1) {
+        name = [NSString stringWithFormat:@"%dx %@", prod.quantity, prod.name];
     }
 
     [nameLabel setText:name];
-    [priceLabel setText:[NSString stringWithFormat:@"$%d", (prods.count * prod.price / 100)]];
+    [priceLabel setText:[NSString stringWithFormat:@"$%d", (prod.quantity * prod.price / 100)]];
     
     return cell;
 }
@@ -154,13 +149,13 @@
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    NSMutableArray *prods = self.cart[indexPath.row];
+    FBProduct *prod = self.cart[indexPath.row];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     assert(storyboard);
     CartDetailPopoverController *controller = (CartDetailPopoverController*)[storyboard instantiateViewControllerWithIdentifier:@"DetailPopover"];
     [controller setDelegate:self];
-    [controller setContent:prods];
+    [controller setContent:prod];
 
     self.cartPopoverController = [[UIPopoverController alloc] initWithContentViewController:controller];
     

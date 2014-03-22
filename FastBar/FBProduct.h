@@ -12,6 +12,7 @@
 
 @property (strong,nonatomic) NSString *name;
 @property (assign,nonatomic) NSInteger price;
+@property (assign,nonatomic) NSInteger quantity;
 
 -initWithName:(NSString*)name price:(NSInteger)price;
 

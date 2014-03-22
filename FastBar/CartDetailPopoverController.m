@@ -12,13 +12,14 @@
 
 -(void)viewDidLoad
 {
-    [self.stepper setValue:self.content.count];
+    [self.stepper setValue:self.content.quantity];
     [self.stepper addTarget:self action:@selector(stepperChanged:) forControlEvents:UIControlEventValueChanged];
 }
 
 -(void)stepperChanged:(id)sender
 {
-    
+    self.content.quantity = self.stepper.value;
+    [self.delegate contentChanged];
 }
 
 @end
