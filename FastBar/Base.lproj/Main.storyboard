@@ -32,7 +32,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$3" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7RX-id-P6O">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7RX-id-P6O">
                                 <rect key="frame" x="116" y="20" width="73" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -54,6 +54,7 @@
                     <size key="freeformSize" width="260" height="100"/>
                     <connections>
                         <outlet property="priceEachLabel" destination="7RX-id-P6O" id="6eq-3Q-Syj"/>
+                        <outlet property="quantityLabel" destination="0vS-A5-D1I" id="M4w-KF-x7S"/>
                         <outlet property="stepper" destination="s6Z-Ns-LL7" id="s9O-rB-mpW"/>
                     </connections>
                 </viewController>

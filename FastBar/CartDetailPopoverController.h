@@ -19,4 +19,5 @@
 
 @property (strong, nonatomic) IBOutlet UIStepper *stepper;
 @property (strong, nonatomic) IBOutlet UILabel *priceEachLabel;
+@property (strong, nonatomic) IBOutlet UILabel *quantityLabel;
 @end
