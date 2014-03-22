@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CartDetailPopoverController.h"
 
-@interface FirstViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface FirstViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate,CartDetailPopoverControllerDelegate>
 
 @property (strong,nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) IBOutlet UICollectionView *collectionView;

@@ -18,6 +18,7 @@
 		83D3ED3B18DE40E100D813DD /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D3ED3A18DE40E100D813DD /* CoreVideo.framework */; };
 		83D3ED3D18DE40E900D813DD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D3ED3C18DE40E900D813DD /* QuartzCore.framework */; };
 		83D3ED3F18DE40F000D813DD /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D3ED3E18DE40F000D813DD /* libiconv.dylib */; };
+		83D3ED4218DE456D00D813DD /* CartDetailPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D3ED4118DE456D00D813DD /* CartDetailPopoverController.m */; };
 		83F247EE18DD63F8007ACCCB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F247ED18DD63F8007ACCCB /* Foundation.framework */; };
 		83F247F018DD63F8007ACCCB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F247EF18DD63F8007ACCCB /* CoreGraphics.framework */; };
 		83F247F218DD63F8007ACCCB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F247F118DD63F8007ACCCB /* UIKit.framework */; };
@@ -79,6 +80,8 @@
 		83D3ED3A18DE40E100D813DD /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		83D3ED3C18DE40E900D813DD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		83D3ED3E18DE40F000D813DD /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		83D3ED4018DE456D00D813DD /* CartDetailPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartDetailPopoverController.h; sourceTree = "<group>"; };
+		83D3ED4118DE456D00D813DD /* CartDetailPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartDetailPopoverController.m; sourceTree = "<group>"; };
 		83F247EA18DD63F8007ACCCB /* FastBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FastBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83F247ED18DD63F8007ACCCB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		83F247EF18DD63F8007ACCCB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -246,6 +249,8 @@
 				83F247FF18DD63F8007ACCCB /* Main.storyboard */,
 				83F2480218DD63F8007ACCCB /* FirstViewController.h */,
 				83F2480318DD63F8007ACCCB /* FirstViewController.m */,
+				83D3ED4018DE456D00D813DD /* CartDetailPopoverController.h */,
+				83D3ED4118DE456D00D813DD /* CartDetailPopoverController.m */,
 				83F2480518DD63F8007ACCCB /* SecondViewController.h */,
 				83F2480618DD63F8007ACCCB /* SecondViewController.m */,
 				83D3ED1018DE09A700D813DD /* FBProduct.h */,
@@ -424,6 +429,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83D3ED4218DE456D00D813DD /* CartDetailPopoverController.m in Sources */,
 				83F2480718DD63F8007ACCCB /* SecondViewController.m in Sources */,
 				83F247FE18DD63F8007ACCCB /* AppDelegate.m in Sources */,
 				83F2480418DD63F8007ACCCB /* FirstViewController.m in Sources */,

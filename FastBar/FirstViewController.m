@@ -8,12 +8,15 @@
 
 #import "FirstViewController.h"
 #import "FBProduct.h"
+#import "ZBarSDK.h"
 
 @interface FirstViewController ()
 @property (strong,nonatomic) NSArray *products;
 @property (strong,nonatomic) NSMutableArray *cart;
 
 @property (strong,nonatomic) NSString *currentBarCode;
+
+@property (strong,nonatomic) UIPopoverController *cartPopoverController;
 @end
 
 @implementation FirstViewController
@@ -147,5 +150,27 @@
     }
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    NSMutableArray *prods = self.cart[indexPath.row];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    assert(storyboard);
+    CartDetailPopoverController *controller = (CartDetailPopoverController*)[storyboard instantiateViewControllerWithIdentifier:@"DetailPopover"];
+    [controller setDelegate:self];
+    [controller setContent:prods];
+
+    self.cartPopoverController = [[UIPopoverController alloc] initWithContentViewController:controller];
+    
+    [self.cartPopoverController presentPopoverFromRect:cell.frame inView:self.tableView permittedArrowDirections:UIPopoverArrowDirectionRight animated:YES];
+}
+
+#pragma mark content changed
+-(void)contentChanged
+{
+    [self.tableView reloadData];
+}
 
 @end
