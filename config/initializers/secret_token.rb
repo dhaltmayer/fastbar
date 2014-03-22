@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Quiquor::Application.config.secret_key_base = '2793f943687d8e62a24553adba252d33bc919bfea7aad88f9fc61f530f89e1b9c15a038a406f08be593fd4ba7a30c6ae14e4f8e857a4aefb70e2fe1e7b279e92'
+Fastbar::Application.config.secret_key_base = '2793f943687d8e62a24553adba252d33bc919bfea7aad88f9fc61f530f89e1b9c15a038a406f08be593fd4ba7a30c6ae14e4f8e857a4aefb70e2fe1e7b279e92'
