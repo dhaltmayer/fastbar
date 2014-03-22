@@ -12,6 +12,8 @@
 @interface FirstViewController ()
 @property (strong,nonatomic) NSArray *products;
 @property (strong,nonatomic) NSMutableArray *cart;
+
+@property (strong,nonatomic) NSString *currentBarCode;
 @end
 
 @implementation FirstViewController
@@ -38,6 +40,46 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)addProductToCart:(FBProduct*)prod
+{
+    // Try to find existing prod in O(n) yay
+    NSArray *selections = [self.cart bk_select:^BOOL(NSArray *arr) {
+        FBProduct *firstProd = arr[0];
+        return [firstProd.name isEqualToString:prod.name];
+    }];
+    
+    if (selections.count == 0) {
+        // Not found, we should add
+        NSArray *newProdArray = [[NSMutableArray alloc] initWithObjects:prod, nil];
+        [self.cart addObject:newProdArray];
+    } else {
+        NSMutableArray *selection = selections[0];
+        [selection addObject:prod];
+    }
+    
+    [self.tableView reloadData];
+    [self updateTotal];
+}
+
+-(void)updateTotal
+{
+    if (!self.currentBarCode) {
+        [self.cartDetails setText:@"Scan FastBar to Continue..."];
+        return;
+    }
+
+    __block NSInteger price = 0;
+    
+    [self.cart bk_each:^(NSArray *selection) {
+        [selection bk_each:^(FBProduct *prod) {
+            price += prod.price;
+        }];
+    }];
+
+    [self.cartDetails setText:[NSString stringWithFormat:@"$%d", price/100]];
+}
+
+#pragma mark collectionview
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return self.products.count;
@@ -50,8 +92,10 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
     FBProduct *prod = self.products[indexPath.row];
-    UILabel *label = (UILabel*)[cell viewWithTag:100];
-    [label setText:prod.name];
+    
+    UILabel *name = (UILabel*)[cell viewWithTag:100];
+    
+    [name setText:prod.name];
     
     return cell;
 }
@@ -59,9 +103,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     FBProduct *prod = self.products[indexPath.row];
-    [self.cart addObject:prod];
-    
-    [self.tableView reloadData];
+    [self addProductToCart:prod];
 }
 
 #pragma mark tableview
@@ -69,9 +111,19 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CartCell" forIndexPath:indexPath];
     
-    FBProduct *prod = self.cart[indexPath.row];
-    UILabel *label = (UILabel*)[cell viewWithTag:100];
-    [label setText:prod.name];
+    NSArray *prods = self.cart[indexPath.row];
+    FBProduct *prod = prods[0];
+    
+    UILabel *nameLabel = (UILabel*)[cell viewWithTag:100];
+    UILabel *priceLabel = (UILabel*)[cell viewWithTag:300];
+
+    NSString *name = prod.name;
+    if (prods.count > 1) {
+        name = [NSString stringWithFormat:@"%dx %@", prods.count, prod.name];
+    }
+
+    [nameLabel setText:name];
+    [priceLabel setText:[NSString stringWithFormat:@"$%d", (prods.count * prod.price / 100)]];
     
     return cell;
 }
@@ -91,6 +143,7 @@
         //add code here for when you hit delete
         [self.cart removeObjectAtIndex:indexPath.row];
         [tableView reloadData];
+        [self updateTotal];
     }
 }
 
