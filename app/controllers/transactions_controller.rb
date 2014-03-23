@@ -6,7 +6,7 @@ class TransactionsController < ApplicationController
     if @user.blank?
       raise ActionController::RoutingError.new('You need a barcode!')
     end
-    @user.transactions.new
+    @user.transactions.create(product: params[:product], price: params[:price])
   end
 
   def index
