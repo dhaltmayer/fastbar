@@ -7,6 +7,7 @@
 $nav-height: 66px;
 
 $brand-primary: #1b75bb;
+$brand-secondary: #0099ff;
 
 // MIXINS
 @mixin vert-center {
@@ -18,7 +19,9 @@ $brand-primary: #1b75bb;
 
 // STYLES
 
-
+.btn-primary {
+  background: $brand-secondary;
+}
 
 .wrapper {
   margin: 0 auto;
@@ -52,6 +55,21 @@ $brand-primary: #1b75bb;
 .span6:nth-child(2) {
   margin-left: 2.5%;
   text-align: right;
+}
+
+.home {
+  background: url("fastbar_home-icon.png") no-repeat center center;
+  border-color: transparent;
+  box-shadow: none;
+  height: 36px;
+  padding-right: 0;
+  text-indent: -9999px;
+  width: 36px;
+
+  &:hover {
+    background-color: transparent;
+    background-position: center center;
+  }
 }
 
 .page {
