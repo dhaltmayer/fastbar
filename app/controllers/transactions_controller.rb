@@ -7,7 +7,11 @@ class TransactionsController < ApplicationController
     if @user.blank?
       raise ActionController::RoutingError.new('You need a barcode!')
     end
-    @user.transactions.create(transaction_params)
+    t = Transaction.new(user: @user)
+    t.price = params[:price]
+    t.product = params[:product]
+    t.save if t.price && t.product
+    # @user.transactions.create(transaction_params)
   end
 
   def index
