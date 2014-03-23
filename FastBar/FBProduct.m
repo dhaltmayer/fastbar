@@ -16,6 +16,7 @@
     if (self) {
         self.name = name;
         self.price = price;
+        self.quantity = 1;
     }
     return self;
 }
