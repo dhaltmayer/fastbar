@@ -12,6 +12,7 @@ class TransactionsController < ApplicationController
 
   def index
    @transactions = Transaction.all
+   #@user = User.find(params[:id])
 
     respond_to do |fmt|
       fmt.json { render json: @transactions }

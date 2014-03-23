@@ -1,0 +1,25 @@
+<h1>Listing users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <!-- <td><%#= user.transaction.product %></td> -->
+        <td></td>
+      </tr>
+  </tbody>
+    <% end %>
+</table>
+
+<br>
+
+<%= link_to 'New Transaction', new_transaction_path %>
