@@ -20,7 +20,7 @@
 
 -(void)updateLabels
 {
-    [self.priceEachLabel setText:[NSString stringWithFormat:@"$%d", self.content.price/100]];
+    [self.priceEachLabel setText:[NSString stringWithFormat:@"$%d.00", self.content.price/100]];
     [self.quantityLabel setText:[NSString stringWithFormat:@"%d", self.content.quantity]];
 }
 

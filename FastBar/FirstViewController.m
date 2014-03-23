@@ -16,16 +16,23 @@
 @property (strong,nonatomic) NSMutableArray *cart;
 
 @property (strong,nonatomic) NSString *currentBarCode;
+@property (strong,atomic) NSString *currentUserName;
 
 @property (strong,nonatomic) UIPopoverController *cartPopoverController;
 @end
 
 @implementation FirstViewController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    self.currentBarCode = @"091238741021";
     
     self.products = @[
       [[FBProduct alloc] initWithName:@"Beer" price:100 image:[UIImage imageNamed:@"DrinkBeer"]],
@@ -40,6 +47,9 @@
     [self.barcodeEntryTextField becomeFirstResponder];
     self.collectionView.alwaysBounceVertical = YES;
     self.collectionView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
+    
+    [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [self updateCheckoutButton];
 }
@@ -71,17 +81,13 @@
 
 -(void)updateTotal
 {
-    if (!self.currentBarCode) {
-        return;
-    }
-
     __block NSInteger price = 0;
     
     [self.cart bk_each:^(FBProduct *p) {
         price += p.quantity * p.price;
     }];
 
-    [self.grandTotalLabel setText:[NSString stringWithFormat:@"$%d", price/100]];
+    [self.grandTotalLabel setText:[NSString stringWithFormat:@"$%d.00", price/100]];
 }
 
 -(void)updateCheckoutButton
@@ -96,9 +102,9 @@
     }
     
     if (self.currentBarCode) {
-        [self.cartDetails setText:[NSString stringWithFormat:@"ID: %@", self.currentBarCode]];
+        [self.barcodeEntryTextField setText:[NSString stringWithFormat:@"#%@", self.currentBarCode]];
     } else {
-        [self.cartDetails setText:@"Scan FastBar to Continue..."];
+        [self.barcodeEntryTextField setText:@"Pending Scan..."];
     }
 }
 
@@ -143,11 +149,11 @@
 
     NSString *name = prod.name;
     if (prod.quantity != 1) {
-        name = [NSString stringWithFormat:@"%dx %@", prod.quantity, prod.name];
+        name = [NSString stringWithFormat:@"%@ (x%d)", prod.name, prod.quantity];
     }
 
     [nameLabel setText:name];
-    [priceLabel setText:[NSString stringWithFormat:@"$%d", (prod.quantity * prod.price / 100)]];
+    [priceLabel setText:[NSString stringWithFormat:@"$%d.00", (prod.quantity * prod.price / 100)]];
     
     return cell;
 }
@@ -237,6 +243,7 @@
     }];
     [self.cart removeAllObjects];
     [self clearCurrentBarcode:self];
+    [self updateTotal];
     [self.tableView reloadData];
 }
 

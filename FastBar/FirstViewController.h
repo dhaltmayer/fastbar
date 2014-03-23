@@ -14,7 +14,9 @@
 @property (strong,nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) IBOutlet UICollectionView *collectionView;
 
-@property (strong,nonatomic) IBOutlet UILabel *cartDetails;
+@property (strong,nonatomic) IBOutlet UILabel *userName;
+@property (strong,nonatomic) IBOutlet UILabel *barCodeLabel;
+
 @property (strong,nonatomic) IBOutlet UILabel *grandTotalLabel;
 @property (strong,nonatomic) IBOutlet UIButton *checkoutButton;
 @property (strong,nonatomic) IBOutlet UIButton *clearButton;
