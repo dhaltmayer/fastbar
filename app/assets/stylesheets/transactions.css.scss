@@ -15,8 +15,17 @@ $brand-secondary: #0099ff;
     margin-top: 100px;
   }
 
-  td {
+  table {
+    margin: 50px auto;
+    width: 435px;
+  }
+
+  td, th {
     text-align: left;
+  }
+
+  th {
+    text-transform: uppercase;
   }
 
 }
