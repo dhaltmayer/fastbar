@@ -23,7 +23,9 @@
         </td>
         <% if transaction %>
           <td><%= transaction.product %></td>
-          <td><%= transaction.price %></td>
+          <% unless transaction.price.nil? %>
+            <td>$<%= transaction.price / 100 %></td>
+          <% end %>
         <% else%>
           <td></td>
           <td>Registered</td>
