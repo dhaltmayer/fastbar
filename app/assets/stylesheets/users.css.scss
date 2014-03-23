@@ -93,10 +93,11 @@ a.btn {
 }
 
 .alert-info {
+  padding: 8px 2.5%;
   position: absolute;
   top: $nav-height;
+  width: 95%;
   z-index: 2;
-  width: 100%;
 }
 
 
