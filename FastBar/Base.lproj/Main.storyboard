@@ -216,7 +216,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.91764705882352937" green="0.94117647058823528" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.19215686274509802" green="0.19215686274509802" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="iQr-d4-Ar2" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" id="8qp-4k-ywN"/>
                             <constraint firstItem="iQr-d4-Ar2" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="9hT-Pl-9vo"/>
@@ -237,7 +237,7 @@
                         <outlet property="grandTotalLabel" destination="dBS-Pz-gxm" id="2hj-Bg-AaB"/>
                         <outlet property="tableView" destination="bya-ei-RXr" id="PdZ-aI-JgF"/>
                         <outlet property="toolbar" destination="iQr-d4-Ar2" id="E7v-EV-wAr"/>
-                        <outlet property="userName" destination="LIO-h4-1sl" id="OfP-5L-lIJ"/>
+                        <outlet property="userNameLabel" destination="LIO-h4-1sl" id="wuA-22-57L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>

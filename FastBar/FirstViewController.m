@@ -10,6 +10,7 @@
 #import "FBProduct.h"
 #import "ZBarSDK.h"
 #include "TargetConditionals.h"
+#import "AFNetworking.h"
 
 @interface FirstViewController ()
 @property (strong,nonatomic) NSArray *products;
@@ -21,7 +22,35 @@
 @property (strong,nonatomic) UIPopoverController *cartPopoverController;
 @end
 
+#define GET_USER_URL @"http://www.fastbar.co/api_getuser.json"
+#define POST_TRANSACTION_URL @"http://www.fastbar.co/api_transaction.json"
+
 @implementation FirstViewController
+
+-(void)setCurrentBarCode:(NSString *)currentBarCode
+{
+    _currentBarCode = currentBarCode;
+    self.currentUserName = @"Scanned";
+    
+    // Get the user name
+    if (currentBarCode) {
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            NSDictionary *params = @{@"barcode": currentBarCode};
+            [manager GET:GET_USER_URL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSLog(@"JSON: %@", responseObject);
+
+                // Run UI update
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    
+                });
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+            }];
+            
+        });
+    }
+}
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -41,7 +70,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.currentBarCode = @"091238741021";
+    self.currentBarCode = @"602652170584";
     
     // Toolbar setup
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"FastBar Register"
@@ -140,9 +169,15 @@
     }
     
     if (self.currentBarCode) {
-        [self.barcodeEntryTextField setText:[NSString stringWithFormat:@"#%@", self.currentBarCode]];
+        [self.barCodeLabel setText:[NSString stringWithFormat:@"#%@", self.currentBarCode]];
     } else {
-        [self.barcodeEntryTextField setText:@"Pending Scan..."];
+        [self.barCodeLabel setText:@"Pending Scan..."];
+    }
+    
+    if (self.currentBarCode) {
+        [self.userNameLabel setText:self.currentBarCode];
+    } else {
+        [self.userNameLabel setText:@"Scan FastBar"];
     }
 }
 
@@ -282,6 +317,29 @@
 -(void)checkout:(id)sender
 {
     NSLog(@"Checkout");
+    
+    if (!self.currentBarCode) {
+        NSLog(@"No bar code");
+        return;
+    }
+    
+    NSMutableArray *params = [[NSMutableArray alloc] init];
+    [self.cart bk_each:^(FBProduct *p) {
+        for (int i=0; i < p.quantity; i++) {
+            [params addObject:@{@"barcode": self.currentBarCode, @"product": p.name, @"price": @(p.price)}];
+        }
+    }];
+    
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        for (NSDictionary *param in params) {
+            [manager POST:POST_TRANSACTION_URL parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSLog(@"JSON: %@", responseObject);
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+            }];
+        }
+    });
     
     // Cleanup afterwards
     [self clearCurrentBarcode:self];

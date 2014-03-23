@@ -3,6 +3,7 @@
 
 target "FastBar" do
 pod 'BlocksKit'
+pod 'AFNetworking'
 end
 
 target "FastBarTests" do

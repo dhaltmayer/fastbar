@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "CartDetailPopoverController.h"
 
-@interface FirstViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate,CartDetailPopoverControllerDelegate,UITextFieldDelegate>
+@interface FirstViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate,CartDetailPopoverControllerDelegate,UITextFieldDelegate,UIToolbarDelegate>
 
 @property (strong,nonatomic) IBOutlet UITableView *tableView;
 @property (strong,nonatomic) IBOutlet UICollectionView *collectionView;
 
-@property (strong,nonatomic) IBOutlet UILabel *userName;
+@property (strong,nonatomic) IBOutlet UILabel *userNameLabel;
 @property (strong,nonatomic) IBOutlet UILabel *barCodeLabel;
 
 @property (strong,nonatomic) IBOutlet UILabel *grandTotalLabel;
