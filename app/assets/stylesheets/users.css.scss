@@ -27,6 +27,13 @@ $brand-secondary: #0099ff;
   }
 }
 
+a.btn {
+
+  &:visited {
+    color: #fff;
+  }
+}
+
 .wrapper {
   margin: 0 auto;
   max-width: 960px;
@@ -77,6 +84,7 @@ $brand-secondary: #0099ff;
 }
 
 .page {
+  overflow: hidden;
   position: relative;
 }
 
@@ -212,7 +220,8 @@ $brand-secondary: #0099ff;
   }
 }
 
-.page-register {
+.page-register,
+.page-transactions {
   .nav-fixed-top {
     background: rgba(0,0,0,.9);
     color: #fff;

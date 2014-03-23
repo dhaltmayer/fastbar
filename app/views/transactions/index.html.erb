@@ -1,5 +1,12 @@
 <div class="page page-transactions">
 
+ <div class="nav-fixed-top">
+            <div class="wrapper">
+                <div class="span6 logo">LOGO</div>
+                <div class="span6"><a class="home btn" href="/">Home</a></div>
+            </div>
+        </div>
+
     <div class="wrapper">
 
         <h1>Listing transactions</h1>
@@ -41,7 +48,7 @@
 
         <br>
 
-        <%= link_to 'New Transaction', new_transaction_path %>
+        <%= link_to 'New Transaction', new_transaction_path, class: "btn btn-primary btn-large" %>
 
     </div>
 
