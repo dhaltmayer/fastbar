@@ -13,7 +13,12 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.name %></td>
-        <td><%= user.transaction.product %></td>
+        <td>
+          <% user.transactions.each do |trans| %>
+            <%= trans.product %>
+            <%= trans.price %>
+          <% end %>
+        </td>
         <td></td>
       </tr>
   </tbody>
