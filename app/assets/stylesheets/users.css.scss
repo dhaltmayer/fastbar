@@ -20,10 +20,37 @@ $nav-height: 50px;
 
 // STYLES
 
+.wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
 .span4 {
+  box-sizing: border-box;
   float: left;
   margin: 0 0 0 2.5%;
-  width: (100%/3) - (5%);
+  width: (100%/3) - 2.5%;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+.span6 {
+  box-sizing: border-box;
+  float: left;
+  width: 47.5%;
+  margin: 0 0 0 2.5%;
+  width: (100%/2) - 2.5%;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+.span6:nth-child(2) {
+  margin-left: 2.5%;
+  text-align: right;
 }
 
 .page {
@@ -47,14 +74,7 @@ $nav-height: 50px;
   text-align: left;
   width: 95%;
 
-  div {
-    box-sizing: border-box;
-    float: left;
-    width: 47.5%;
-  }
-
-  .btn-block {
-    margin-left: 2.5%;
+  .span6:nth-child(2) {
     text-align: right;
   }
 
@@ -92,13 +112,14 @@ $nav-height: 50px;
 }
 
 .about {
-  background: rgba(0,0,0,.1);
   padding-top: 20px;
   padding-bottom: 20px;
+  text-align: left;
 
   > .row {
     margin: 0;
   }
+
 }
 
 
@@ -120,6 +141,17 @@ $nav-height: 50px;
   }
 }
 
+
+
+.panel-register {
+  margin-top: 50px;
+  width: 220px;
+  margin: 100px auto 0;
+
+  label {
+    display: none;
+  }
+}
 
 
 @media (max-width: 767px)  {
