@@ -28,17 +28,18 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     self.products = @[
-                      [[FBProduct alloc] initWithName:@"Orange Juice" price:100],
-                      [[FBProduct alloc] initWithName:@"Screwdriver" price:500],
-                      [[FBProduct alloc] initWithName:@"Rum and Coke" price:500],
-                      [[FBProduct alloc] initWithName:@"Vodka Cranberry" price:500],
-                      [[FBProduct alloc] initWithName:@"Vodka Shot" price:300],
-                      [[FBProduct alloc] initWithName:@"Cranberry Juice" price:100]
-                    ];
+      [[FBProduct alloc] initWithName:@"Beer" price:100 image:[UIImage imageNamed:@"DrinkBeer"]],
+      [[FBProduct alloc] initWithName:@"Wine" price:100 image:[UIImage imageNamed:@"DrinkWine"]],
+      [[FBProduct alloc] initWithName:@"Rum and Coke" price:100 image:[UIImage imageNamed:@"DrinkRumCoke"]],
+      [[FBProduct alloc] initWithName:@"Screwdriver" price:100 image:[UIImage imageNamed:@"DrinkScrewdriver"]],
+      [[FBProduct alloc] initWithName:@"Vodka Cranberry" price:100 image:[UIImage imageNamed:@"DrinkVodkaCran"]],
+      [[FBProduct alloc] initWithName:@"Other" price:100 image:[UIImage imageNamed:@"DrinkGeneric"]]
+    ];
     self.cart = [[NSMutableArray alloc] init];
     
     [self.barcodeEntryTextField becomeFirstResponder];
     self.collectionView.alwaysBounceVertical = YES;
+    self.collectionView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
     
     [self updateCheckoutButton];
 }
@@ -89,9 +90,9 @@
     
     [self.checkoutButton setEnabled:(self.currentBarCode != nil)];
     if (self.currentBarCode) {
-        [self.checkoutButton setBackgroundColor:[UIColor colorWithRed:23 green:173 blue:3 alpha:1]];
+        [self.checkoutButton setBackgroundColor:[UIColor colorWithRed:23/255.0 green:173/255.0 blue:3/255.0 alpha:255.0]];
     } else {
-        [self.checkoutButton setBackgroundColor:[UIColor colorWithRed:235 green:235 blue:241 alpha:1]];
+        [self.checkoutButton setBackgroundColor:[UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:255.0]];
     }
     
     if (self.currentBarCode) {
@@ -116,8 +117,10 @@
     FBProduct *prod = self.products[indexPath.row];
     
     UILabel *name = (UILabel*)[cell viewWithTag:100];
+    UIImageView *imageView = (UIImageView*)[cell viewWithTag:200];
     
     [name setText:prod.name];
+    [imageView setImage:prod.image];
     
     return cell;
 }

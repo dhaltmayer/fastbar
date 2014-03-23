@@ -13,7 +13,8 @@
 @property (strong,nonatomic) NSString *name;
 @property (assign,nonatomic) NSInteger price;
 @property (assign,nonatomic) NSInteger quantity;
+@property (strong,nonatomic) UIImage *image;
 
--initWithName:(NSString*)name price:(NSInteger)price;
+-initWithName:(NSString*)name price:(NSInteger)price image:(UIImage*)img;
 
 @end

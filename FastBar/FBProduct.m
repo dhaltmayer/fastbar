@@ -10,13 +10,14 @@
 
 @implementation FBProduct
 
--(id)initWithName:(NSString *)name price:(NSInteger)price
+-(id)initWithName:(NSString *)name price:(NSInteger)price image:(UIImage*)img;
 {
     self = [self init];
     if (self) {
         self.name = name;
         self.price = price;
         self.quantity = 1;
+        self.image = img;
     }
     return self;
 }
