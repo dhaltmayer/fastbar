@@ -1,5 +1,4 @@
 class TransactionsController < ApplicationController
-  #respond_to :json, :html
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
 
   def pos_create
@@ -7,7 +6,7 @@ class TransactionsController < ApplicationController
     if @user.blank?
       raise ActionController::RoutingError.new('You need a barcode!')
     end
-    @user.transactions.new
+    @user.transactions.create(transaction_params)
   end
 
   def index

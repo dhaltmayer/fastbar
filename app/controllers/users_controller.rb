@@ -1,6 +1,13 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:index, :show, :edit, :update, :destroy]
 
+  def api_barcode
+    @user = User.find_by_barcode(params[:barcode])
+    respond_to do |fmt|
+      fmt.json { render json: @user }
+    end
+  end
+
   def new
     @user = User.new
   end
