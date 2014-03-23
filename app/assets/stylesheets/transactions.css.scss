@@ -16,8 +16,9 @@ $brand-secondary: #0099ff;
   }
 
   table {
-    margin: 50px auto;
-    width: 435px;
+    float: left;
+    margin: 0 0 50px 0;
+    width: 75%;
   }
 
   td, th {
@@ -28,4 +29,37 @@ $brand-secondary: #0099ff;
     text-transform: uppercase;
   }
 
+  .btn {
+    clear: both;
+    margin: 50px 0;
+  }
+
+  .content {
+    overflow: hidden;
+  }
+
+}
+
+
+.totals {
+  float: left;
+  margin-left: 2.5%;
+  width: 25% - 2.5%;
+
+  > div {
+    background: rgba(0,0,0,.05);
+    border: 1px solid rgba(0,0,0,.5);
+    border-left: 10px solid $brand-primary;
+    padding: 1em 1em 1em 0;
+    width: 150px;
+
+    + div {
+      border-top: none;
+    }
+  }
+
+  dt {
+    font-size: 2em;
+    line-height: 1.5em;
+  }
 }
