@@ -1,26 +1,19 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :verify_authenticity_token
 
   def pos_create
     @user = User.find_by_barcode(params[:barcode])
     if @user.blank?
       raise ActionController::RoutingError.new('You need a barcode!')
     end
-    @user.transactions.create(transaction_params)
+    @user.transactions.new
   end
 
   def index
-   @transactions = Transaction.all
-
-    respond_to do |fmt|
-      fmt.json { render json: @transactions }
-      fmt.html { render action: 'index' }
-    end
+    @transactions = Transaction.all
   end
-
+  
   def show
-
   end
 
   # GET /transactions/new
@@ -39,7 +32,7 @@ class TransactionsController < ApplicationController
 
     respond_to do |format|
       if @transaction.save
-        format.html { redirect_to @transaction }
+        format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
         format.json { render action: 'show', status: :created, location: @transaction }
       else
         format.html { render action: 'new' }

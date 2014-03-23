@@ -1,20 +1,12 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:index, :show, :edit, :update, :destroy]
 
-  def api_barcode
-    @user = User.find_by_barcode(params[:barcode])
-    respond_to do |fmt|
-      fmt.json { render json: @user }
-    end
-  end
-
   def new
     @user = User.new
   end
 
   def create
-    @user = User.new(user_params)
-
+    @user = User.new(params[:user])
     if @user.save
       redirect_to root_url, notice: "Thank you for signing up!"
     else
