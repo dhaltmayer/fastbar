@@ -55,6 +55,23 @@
           </tbody>
         </table>
 
+        <div class="totals">
+            <div class="total-price">
+                <dl>
+
+                    <dt>$<%= @totalprice / 100 %>.00</dt>
+                    <dd>Total Revenue</dd>
+                </dl>
+            </div>
+            <div class="total-sold">
+                            <dl>
+
+                                <dt><%= @totalproduct %></dt>
+                                <dd>Total Beverages</dd>
+                            </dl>
+                        </div>
+        </div>
+
         <br>
 
         <%= link_to 'New Transaction', new_transaction_path, class: "btn btn-primary btn-large" %>
