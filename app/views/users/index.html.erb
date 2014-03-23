@@ -16,7 +16,9 @@
         <td>
           <% user.transactions.each do |trans| %>
             <%= trans.product %>
-            <%= trans.price %>
+            <% unless trans.price.nil? %>
+              $<%= trans.price / 100 %>.00
+            <% end %>
           <% end %>
         </td>
         <td></td>
