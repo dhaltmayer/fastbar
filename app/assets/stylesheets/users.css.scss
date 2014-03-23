@@ -187,15 +187,17 @@ $brand-secondary: #0099ff;
 
 }
 
+.footer-fixed-bottom {
+  top: 768px;
+  position: absolute;
+}
 
 .footer {
   background: rgba(0,0,0,.8);
-  bottom: 0;
   height: $nav-height;
   line-height: $nav-height;
   overflow: hidden;
   padding: 0 2.5%;
-  position: absolute;
   text-align: left;
   width: 95%;
 
