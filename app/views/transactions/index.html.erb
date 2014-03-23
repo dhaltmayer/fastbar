@@ -21,9 +21,13 @@
           <%= puts "unkown user"%>
         <% end %>
         </td>
-        <td><%= transaction.product %></td>
-        <td><%= transaction.price %></td>
-        <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if transaction %>
+          <td><%= transaction.product %></td>
+          <td><%= transaction.price %></td>
+        <% else%>
+          <td></td>
+          <td>Registered</td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
