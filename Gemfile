@@ -21,6 +21,7 @@ group :development, :test do
   gem 'turn'
   gem 'launchy'
   gem 'binding_of_caller'
+  gem 'pry'
 end
 
 group :production do

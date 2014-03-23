@@ -1,10 +1,11 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:index, :show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
 
   def pos_create
     @user = User.find_by_barcode(params[:barcode])
     if @user.blank?
-      raise ActionController::RoutingError.new('You need a barcode!')
+      render :status => 404
     end
     @user.transactions.new
   end
@@ -14,16 +15,20 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    @transaction = Transaction.new(params[:transaction])
+    @transaction = Transaction.new(transaction_params)
     if @transaction.save
-      redirect_to root_url, notice: "Thank you for signing up!"
+      redirect_to transactions_path
     else
       render "new"
     end
   end
 
   def index
-    @transaction = Transaction.all?
+    @transaction = Transaction.all
+    respond_to do |format|
+      format.html
+      format.json { render json: @transactions }
+    end
   end
 
   def edit
