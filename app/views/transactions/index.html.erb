@@ -6,6 +6,7 @@
       <th>Attendee</th>
       <th>Drink</th>
       <th>Price</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -22,6 +23,7 @@
         </td>
         <td><%= transaction.product %></td>
         <td><%= transaction.price %></td>
+        <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -32,3 +34,11 @@
 <%= link_to 'New Transaction', new_transaction_path %>
 
 
+<<<<<<< HEAD
+=======
+<div class="footer">
+<p>&copy;Fast Bar 2014</p>
+</div>
+
+</div>
+>>>>>>> 1d8c8e58af786abe82984e36e7ae58694b112369
