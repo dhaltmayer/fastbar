@@ -6,7 +6,6 @@ class UsersController < ApplicationController
   end
 
   def create
-
     @user = User.new(user_params)
     @user.transactions.build(params[:user][:transaction])
     if @user.save

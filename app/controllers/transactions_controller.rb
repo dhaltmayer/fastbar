@@ -10,9 +10,7 @@ class TransactionsController < ApplicationController
   end
 
   def index
-   @transactions = Transaction.all
-   #@user = User.find(params[:id])
-
+    @transactions = Transaction.all
     respond_to do |fmt|
       fmt.json { render json: @transactions }
       fmt.html { render action: 'index' }

@@ -12,7 +12,14 @@
   <tbody>
     <% @transactions.each do |transaction| %>
       <tr>
-        <td><%= transaction.user.name %></td>
+
+        <td>
+        <% if transaction.user %>
+          <%= transaction.user.name %>
+        <% else %>
+          <%= puts "unkown user"%>
+        <% end %>
+        </td>
         <td><%= transaction.product %></td>
         <td><%= transaction.price %></td>
       </tr>
