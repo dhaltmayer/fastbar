@@ -4,7 +4,9 @@
 
 
 // VARIABLES
-$nav-height: 50px;
+$nav-height: 66px;
+
+$brand-primary: #1b75bb;
 
 // MIXINS
 @mixin vert-center {
@@ -60,6 +62,13 @@ $nav-height: 50px;
   padding-bottom: $nav-height;
 }
 
+.alert-info {
+  position: absolute;
+  top: $nav-height;
+  z-index: 2;
+  width: 100%;
+}
+
 
 .nav-fixed-top {
   background: rgba(0,0,0,.25);
@@ -84,9 +93,10 @@ $nav-height: 50px;
 
 
 .branding {
-  $height: 605px;
+  $height: 768px;
 
   background: url('martini_heroimage.jpg') no-repeat;
+  background-size: cover;
   color: white;
   display: table;
   height: $height;
@@ -96,7 +106,7 @@ $nav-height: 50px;
     font-size: 5em;
     line-height: 1.25em;
     margin: 0 auto 1em;
-    text-shadow: 0px -1px 0px #374683, 0 0px 40px rgba(0,0,0,.5);
+    text-shadow: -1px -1px 0 #374683;
   }
 
   .wrapper {
@@ -127,20 +137,41 @@ $nav-height: 50px;
   }
 }
 
+.logo {
+  background: url("fastbar_logo_white_horiz_header.png") no-repeat;
+  background-size: contain;
+  height: 50px;
+  margin: 8px 0;
+  text-indent: -9999px;
+  text-transform: capitalize;
+}
+
 .about {
   padding-top: 20px;
   padding-bottom: 20px;
   text-align: left;
 
   > .row {
+    clear: both;
     margin: 0;
+  }
+
+  h2 {
+    background-color: $brand-primary;
+    clear: both;
+    font-size: 1.5em;
+    font-weight: normal;
+    color: white;
+    float: left;
+    margin-top: 0;
+    padding: 0 6px 3px;
   }
 
 }
 
 
 .footer {
-  background: #444;
+  background: rgba(0,0,0,.8);
   bottom: 0;
   height: $nav-height;
   line-height: $nav-height;
@@ -157,24 +188,32 @@ $nav-height: 50px;
   }
 }
 
-
+.page-register {
+  .nav-fixed-top {
+    background: rgba(0,0,0,.9);
+    color: #fff;
+  }
+}
 
 .panel-register {
-  margin-top: 50px;
   width: 220px;
-  margin: 100px auto 0;
+  margin: 175px auto 0;
 
   label {
     display: none;
   }
 
   .form-group {
-    margin: 16px 0 0;
+    margin: 8px 0 0;
+  }
+
+  input {
+    padding: 12px 6px;
   }
 }
 
 #new_user {
-  margin-top: 36px;
+  margin-top: 26px;
 }
 
 
