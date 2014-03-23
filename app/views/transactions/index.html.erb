@@ -1,40 +1,49 @@
-<h1>Listing transactions</h1>
+<div class="page page-transactions">
 
-<table>
-  <thead>
-    <tr>
-      <th>Attendee</th>
-      <th>Drink</th>
-      <th>Price</th>
-      <th></th>
-    </tr>
-  </thead>
+    <div class="wrapper">
 
-  <tbody>
-    <% @transactions.each do |transaction| %>
-      <tr>
+        <h1>Listing transactions</h1>
 
-        <td>
-        <% if transaction.user %>
-          <%= transaction.user.name %>
-        <% else %>
-          <%= puts "unkown user"%>
-        <% end %>
-        </td>
-        <% if transaction %>
-          <td><%= transaction.product %></td>
-          <% unless transaction.price.nil? %>
-            <td>$<%= transaction.price / 100 %></td>
-          <% end %>
-        <% else%>
-          <td></td>
-          <td>Registered</td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <table>
+          <thead>
+            <tr>
+              <th>Attendee</th>
+              <th>Drink</th>
+              <th>Price</th>
+              <th></th>
+            </tr>
+          </thead>
 
-<br>
+          <tbody>
+            <% @transactions.each do |transaction| %>
+              <tr>
 
-<%= link_to 'New Transaction', new_transaction_path %>
+                <td>
+                <% if transaction.user %>
+                  <%= transaction.user.name %>
+                <% else %>
+                  <%= puts "unkown user"%>
+                <% end %>
+                </td>
+                <% if transaction %>
+                  <td><%= transaction.product %></td>
+                  <% unless transaction.price.nil? %>
+                    <td>$<%= transaction.price / 100 %></td>
+                  <% end %>
+                <% else%>
+                  <td></td>
+                  <td>Registered</td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <br>
+
+        <%= link_to 'New Transaction', new_transaction_path %>
+
+    </div>
+
+
+</div>
