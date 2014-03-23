@@ -74,12 +74,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iQr-d4-Ar2">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
-                                <items/>
-                            </toolbar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="dan-sf-GIY">
-                                <rect key="frame" x="20" y="54" width="674" height="646"/>
+                                <rect key="frame" x="20" y="0.0" width="674" height="690"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8bb-LG-9LH">
                                     <size key="itemSize" width="214" height="251"/>
@@ -89,7 +85,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="JQF-zY-Mn5">
-                                        <rect key="frame" x="0.0" y="0.0" width="214" height="251"/>
+                                        <rect key="frame" x="0.0" y="44" width="214" height="251"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="214" height="251"/>
@@ -185,6 +181,10 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="29"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iQr-d4-Ar2">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
+                                <items/>
+                            </toolbar>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i4V-wG-2k4">
                                 <rect key="frame" x="718" y="54" width="286" height="53"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -236,6 +236,7 @@
                         <outlet property="collectionView" destination="dan-sf-GIY" id="A2T-an-Jai"/>
                         <outlet property="grandTotalLabel" destination="dBS-Pz-gxm" id="2hj-Bg-AaB"/>
                         <outlet property="tableView" destination="bya-ei-RXr" id="PdZ-aI-JgF"/>
+                        <outlet property="toolbar" destination="iQr-d4-Ar2" id="E7v-EV-wAr"/>
                         <outlet property="userName" destination="LIO-h4-1sl" id="OfP-5L-lIJ"/>
                     </connections>
                 </viewController>

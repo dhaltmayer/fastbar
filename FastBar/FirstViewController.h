@@ -23,6 +23,8 @@
 
 @property (strong, nonatomic) IBOutlet UITextField *barcodeEntryTextField;
 
+@property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
+
 -(IBAction)checkout:(id)sender;
 -(IBAction)clearCurrentBarcode:(id)sender;
 

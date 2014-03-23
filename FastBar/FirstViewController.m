@@ -25,7 +25,16 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (UIBarPosition)positionForBar:(id <UIBarPositioning>)bar
+{
+    return UIBarPositionTopAttached;
 }
 
 - (void)viewDidLoad
@@ -34,19 +43,48 @@
 	// Do any additional setup after loading the view, typically from a nib.
     self.currentBarCode = @"091238741021";
     
+    // Toolbar setup
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"FastBar Register"
+                                                             style:UIBarButtonItemStylePlain
+                                                            target:nil
+                                                            action:nil];
+    
+    UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                            target:nil
+                                                                            action:nil];
+    
+    NSArray *items = [[NSArray alloc] initWithObjects:spacer, item, spacer, nil];
+    
+    [self.toolbar setItems:items];
+    self.toolbar.userInteractionEnabled = NO;
+    self.toolbar.delegate = self;
+    
     self.products = @[
       [[FBProduct alloc] initWithName:@"Beer" price:100 image:[UIImage imageNamed:@"DrinkBeer"]],
       [[FBProduct alloc] initWithName:@"Wine" price:100 image:[UIImage imageNamed:@"DrinkWine"]],
       [[FBProduct alloc] initWithName:@"Rum and Coke" price:100 image:[UIImage imageNamed:@"DrinkRumCoke"]],
+      
+      [[FBProduct alloc] initWithName:@"Whisky" price:100 image:[UIImage imageNamed:@"DrinkGeneric"]],
+      [[FBProduct alloc] initWithName:@"Snacks" price:100 image:[UIImage imageNamed:@"DrinkGeneric"]],
+      [[FBProduct alloc] initWithName:@"Cocaine" price:100 image:[UIImage imageNamed:@"DrinkGeneric"]],
+      
       [[FBProduct alloc] initWithName:@"Screwdriver" price:100 image:[UIImage imageNamed:@"DrinkScrewdriver"]],
       [[FBProduct alloc] initWithName:@"Vodka Cranberry" price:100 image:[UIImage imageNamed:@"DrinkVodkaCran"]],
       [[FBProduct alloc] initWithName:@"Other" price:100 image:[UIImage imageNamed:@"DrinkGeneric"]]
     ];
     self.cart = [[NSMutableArray alloc] init];
     
+    // To get keyboard input for barcode scanner
     [self.barcodeEntryTextField becomeFirstResponder];
+    
+    // CollectionView
     self.collectionView.alwaysBounceVertical = YES;
     self.collectionView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
+    
+    // Adds margin to top
+    UICollectionViewFlowLayout *flow = (UICollectionViewFlowLayout*)self.collectionView.collectionViewLayout;
+    flow.sectionInset = UIEdgeInsetsMake(54, 0, 0, 10);
+
     
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -230,7 +268,15 @@
 -(void)clearCurrentBarcode:(id)sender
 {
     self.currentBarCode = nil;
+    [self.products bk_each:^(FBProduct *p) {
+        p.quantity = 1;
+    }];
+    [self.cart removeAllObjects];
+
     [self updateCheckoutButton];
+    [self updateTotal];
+    
+    [self.tableView reloadData];
 }
 
 -(void)checkout:(id)sender
@@ -238,13 +284,7 @@
     NSLog(@"Checkout");
     
     // Cleanup afterwards
-    [self.products bk_each:^(FBProduct *p) {
-        p.quantity = 1;
-    }];
-    [self.cart removeAllObjects];
     [self clearCurrentBarcode:self];
-    [self updateTotal];
-    [self.tableView reloadData];
 }
 
 @end
