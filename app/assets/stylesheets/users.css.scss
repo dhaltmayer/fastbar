@@ -21,6 +21,10 @@ $brand-secondary: #0099ff;
 
 .btn-primary {
   background: $brand-secondary;
+
+  &:hover {
+    background: $brand-primary;
+  }
 }
 
 .wrapper {
