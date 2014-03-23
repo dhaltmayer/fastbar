@@ -13,6 +13,8 @@
 #import "AFNetworking.h"
 
 @interface FirstViewController ()
+@property (assign,readonly) NSInteger totalPrice;
+
 @property (strong,nonatomic) NSArray *products;
 @property (strong,nonatomic) NSMutableArray *cart;
 
@@ -39,13 +41,20 @@
             NSDictionary *params = @{@"barcode": currentBarCode};
             [manager GET:GET_USER_URL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSLog(@"JSON: %@", responseObject);
+                
+                if (responseObject[@"name"]) {
+                    self.currentUserName = responseObject[@"name"];
+                } else {
+                    self.currentUserName = @"Unknown";
+                }
 
                 // Run UI update
                 dispatch_async(dispatch_get_main_queue(), ^(void){
-                    
+                    [self updateUI];
                 });
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error: %@", error);
+                self.currentUserName = @"Unknown";
             }];
             
         });
@@ -73,10 +82,12 @@
     self.currentBarCode = @"602652170584";
     
     // Toolbar setup
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"FastBar Register"
-                                                             style:UIBarButtonItemStylePlain
-                                                            target:nil
-                                                            action:nil];
+    UIImage *fastbarlogo = [UIImage imageNamed:@"FastBarLogo"];
+    UIButton *face = [UIButton buttonWithType:UIButtonTypeCustom];
+    face.bounds = CGRectMake( 0, 0, fastbarlogo.size.width, fastbarlogo.size.height );
+    [face setImage:fastbarlogo forState:UIControlStateNormal];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:face];
+
     
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                                                             target:nil
@@ -93,9 +104,9 @@
       [[FBProduct alloc] initWithName:@"Wine" price:100 image:[UIImage imageNamed:@"DrinkWine"]],
       [[FBProduct alloc] initWithName:@"Rum and Coke" price:100 image:[UIImage imageNamed:@"DrinkRumCoke"]],
       
-      [[FBProduct alloc] initWithName:@"Whisky" price:100 image:[UIImage imageNamed:@"DrinkGeneric"]],
-      [[FBProduct alloc] initWithName:@"Snacks" price:100 image:[UIImage imageNamed:@"DrinkGeneric"]],
-      [[FBProduct alloc] initWithName:@"Cocaine" price:100 image:[UIImage imageNamed:@"DrinkGeneric"]],
+      [[FBProduct alloc] initWithName:@"Tequila Shot" price:1200 image:[UIImage imageNamed:@"TequilaShot"]],
+      [[FBProduct alloc] initWithName:@"Johnny Walker Blue" price:5500 image:[UIImage imageNamed:@"WalkerBlue"]],
+      [[FBProduct alloc] initWithName:@"Ace of Spades" price:50000 image:[UIImage imageNamed:@"AceSpades"]],
       
       [[FBProduct alloc] initWithName:@"Screwdriver" price:100 image:[UIImage imageNamed:@"DrinkScrewdriver"]],
       [[FBProduct alloc] initWithName:@"Vodka Cranberry" price:100 image:[UIImage imageNamed:@"DrinkVodkaCran"]],
@@ -118,7 +129,7 @@
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    [self updateCheckoutButton];
+    [self updateUI];
 }
 
 - (void)didReceiveMemoryWarning
@@ -143,10 +154,10 @@
     }
     
     [self.tableView reloadData];
-    [self updateTotal];
+    [self updateUI];
 }
 
--(void)updateTotal
+-(NSInteger)totalPrice
 {
     __block NSInteger price = 0;
     
@@ -154,19 +165,23 @@
         price += p.quantity * p.price;
     }];
 
-    [self.grandTotalLabel setText:[NSString stringWithFormat:@"$%d.00", price/100]];
+    return price;
 }
 
--(void)updateCheckoutButton
+-(void)updateUI
 {
     [self.clearButton setHidden:(self.currentBarCode == nil)];
     
     [self.checkoutButton setEnabled:(self.currentBarCode != nil)];
     if (self.currentBarCode) {
-        [self.checkoutButton setBackgroundColor:[UIColor colorWithRed:23/255.0 green:173/255.0 blue:3/255.0 alpha:255.0]];
+        [self.checkoutButton setBackgroundColor:[UIColor colorWithRed:27/255.0 green:117/255.0 blue:187/255.0 alpha:255.0]];
     } else {
         [self.checkoutButton setBackgroundColor:[UIColor colorWithRed:239/255.0 green:239/255.0 blue:244/255.0 alpha:255.0]];
     }
+    
+    NSString *btnTitle = [NSString stringWithFormat:@"Add to Tab: $%d", self.totalPrice/100];
+    [self.checkoutButton setTitle:btnTitle forState:UIControlStateNormal];
+    [self.checkoutButton setTitle:[NSString stringWithFormat:@"$%d", self.totalPrice/100] forState:UIControlStateDisabled];
     
     if (self.currentBarCode) {
         [self.barCodeLabel setText:[NSString stringWithFormat:@"#%@", self.currentBarCode]];
@@ -175,7 +190,7 @@
     }
     
     if (self.currentBarCode) {
-        [self.userNameLabel setText:self.currentBarCode];
+        [self.userNameLabel setText:self.currentUserName];
     } else {
         [self.userNameLabel setText:@"Scan FastBar"];
     }
@@ -197,9 +212,11 @@
     
     UILabel *name = (UILabel*)[cell viewWithTag:100];
     UIImageView *imageView = (UIImageView*)[cell viewWithTag:200];
+    UILabel *priceLabel = (UILabel*)[cell viewWithTag:300];
     
     [name setText:prod.name];
     [imageView setImage:prod.image];
+    [priceLabel setText:[NSString stringWithFormat:@"$%d", prod.price/100]];
     
     return cell;
 }
@@ -219,6 +236,7 @@
     
     UILabel *nameLabel = (UILabel*)[cell viewWithTag:100];
     UILabel *priceLabel = (UILabel*)[cell viewWithTag:300];
+    UIImageView *imageView = (UIImageView*)[cell viewWithTag:400];
 
     NSString *name = prod.name;
     if (prod.quantity != 1) {
@@ -226,7 +244,8 @@
     }
 
     [nameLabel setText:name];
-    [priceLabel setText:[NSString stringWithFormat:@"$%d.00", (prod.quantity * prod.price / 100)]];
+    [priceLabel setText:[NSString stringWithFormat:@"$%d", (prod.quantity * prod.price / 100)]];
+    [imageView setImage:prod.image];
     
     return cell;
 }
@@ -249,7 +268,7 @@
 
         [self.cart removeObjectAtIndex:indexPath.row];
         [tableView reloadData];
-        [self updateTotal];
+        [self updateUI];
     }
 }
 
@@ -294,7 +313,7 @@
     [textField setText:@""];
     NSLog(@"Got bar code: %@", self.currentBarCode);
     
-    [self updateCheckoutButton];
+    [self updateUI];
     
     return YES;
 }
@@ -308,8 +327,7 @@
     }];
     [self.cart removeAllObjects];
 
-    [self updateCheckoutButton];
-    [self updateTotal];
+    [self updateUI];
     
     [self.tableView reloadData];
 }
