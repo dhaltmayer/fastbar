@@ -16,6 +16,8 @@ class TransactionsController < ApplicationController
 
   def index
     @transactions = Transaction.all
+    @totalprice = Transaction.all.map {|t| t.price || 0 }.reduce(:+)
+    @totalproduct = Transaction.count
     respond_to do |fmt|
       fmt.json { render json: @transactions }
       fmt.html { render action: 'index' }

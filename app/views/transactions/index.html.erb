@@ -7,6 +7,7 @@
       <th>Drink</th>
       <th>Price</th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -24,14 +25,15 @@
         <% if transaction %>
           <td><%= transaction.product %></td>
           <% unless transaction.price.nil? %>
-            <td>$<%= transaction.price / 100 %></td>
+            <td>$<%= transaction.price / 100 %>.00</td>
           <% end %>
         <% else%>
-          <td></td>
           <td>Registered</td>
         <% end %>
       </tr>
     <% end %>
+          <td>$<%= @totalprice / 100 %>.00</td>
+          <td><%= @totalproduct %></td>
   </tbody>
 </table>
 
