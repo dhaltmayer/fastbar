@@ -1,12 +1,13 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
-
+  skip_before_action :verify_authenticity_token
+  
   def pos_create
     @user = User.find_by_barcode(params[:barcode])
     if @user.blank?
       raise ActionController::RoutingError.new('You need a barcode!')
     end
-    @user.transactions.create(product: params[:product], price: params[:price])
+    @user.transactions.create(transaction_params)
   end
 
   def index
