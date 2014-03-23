@@ -1,7 +1,7 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
-  
+
   def pos_create
     @user = User.find_by_barcode(params[:barcode])
     if @user.blank?
@@ -78,6 +78,6 @@ class TransactionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def transaction_params
-      params.require(:transaction).permit(:product, :price, :user_id)
+      params.require(:transaction).permit(:product, :price)
     end
 end
