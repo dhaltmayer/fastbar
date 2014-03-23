@@ -1,51 +1,62 @@
 class TransactionsController < ApplicationController
-  before_action :set_transaction, only: [:index, :show, :edit, :update, :destroy]
-  skip_before_action :verify_authenticity_token
+  before_action :set_transaction, only: [:show, :edit, :update, :destroy]
 
   def pos_create
     @user = User.find_by_barcode(params[:barcode])
     if @user.blank?
-      render :status => 404
+      raise ActionController::RoutingError.new('You need a barcode!')
     end
     @user.transactions.new
   end
 
+  def index
+    @transactions = Transaction.all
+  end
+  
+  def show
+  end
+
+  # GET /transactions/new
   def new
     @transaction = Transaction.new
   end
 
-  def create
-    @transaction = Transaction.new(transaction_params)
-    if @transaction.save
-      redirect_to transactions_path
-    else
-      render "new"
-    end
-  end
-
-  def index
-    @transaction = Transaction.all
-    respond_to do |format|
-      format.html
-      format.json { render json: @transactions }
-    end
-  end
-
+  # GET /transactions/1/edit
   def edit
   end
 
-  def show
-  end
+  # POST /transactions
+  # POST /transactions.json
+  def create
+    @transaction = Transaction.new(transaction_params)
 
-  def update
     respond_to do |format|
-      if @transaction.update(transaction_params)
-        format.html { redirect_to @transaction, notice: 'transaction was successfully updated.' }
-        format.json { head :no_content }
+      if @transaction.save
+        format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @transaction }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end
     end
   end
 
+  # PATCH/PUT /transactions/1
+  # PATCH/PUT /transactions/1.json
+  def update
+    respond_to do |format|
+      if @transaction.update(transaction_params)
+        format.html { redirect_to @transaction, notice: 'Transaction was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @transaction.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /transactions/1
+  # DELETE /transactions/1.json
   def destroy
     @transaction.destroy
     respond_to do |format|
@@ -54,13 +65,14 @@ class TransactionsController < ApplicationController
     end
   end
 
-private
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_transaction
+      @transaction = Transaction.find(params[:id])
+    end
 
-  def set_transaction
-    @transaction = Transaction.find(params[:id])
-  end
-
-  def transaction_params
-    params.require(:transaction).permit(:product, :price)
-  end
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def transaction_params
+      params.require(:transaction).permit(:product, :price, :user_id)
+    end
 end
