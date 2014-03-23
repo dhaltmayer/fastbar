@@ -11,6 +11,10 @@ class TransactionsController < ApplicationController
 
   def index
     @transactions = Transaction.all
+    respond_to do |fmt|
+      fmt.json { render json: @transactions }
+      fmt.html { render action: 'index' }
+    end
   end
   
   def show
