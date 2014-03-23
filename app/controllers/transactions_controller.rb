@@ -1,13 +1,17 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
-  
+
   def pos_create
     @user = User.find_by_barcode(params[:barcode])
     if @user.blank?
       raise ActionController::RoutingError.new('You need a barcode!')
     end
-    @user.transactions.create(transaction_params)
+    t = Transaction.new(user: @user)
+    t.price = params[:price]
+    t.product = params[:product]
+    t.save if t.price && t.product
+    # @user.transactions.create(transaction_params)
   end
 
   def index
@@ -78,6 +82,6 @@ class TransactionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def transaction_params
-      params.require(:transaction).permit(:product, :price, :user_id)
+      params.require(:transaction).permit(:product, :price)
     end
 end
