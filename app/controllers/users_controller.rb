@@ -3,10 +3,11 @@ class UsersController < ApplicationController
 
   def api_barcode
     @user = User.find_by_barcode(params[:barcode])
-    respond_to do |fmt|
-    fmt.json { render json: @user }
+      respond_to do |fmt|
+      fmt.json { render json: @user }
+    end
   end
-  
+
   def new
     @user = User.new
   end
