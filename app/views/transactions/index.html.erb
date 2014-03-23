@@ -1,42 +1,58 @@
-<h1>Listing transactions</h1>
+<div class="page page-transactions">
 
-<table>
-  <thead>
-    <tr>
-      <th>Attendee</th>
-      <th>Drink</th>
-      <th>Price</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+ <div class="nav-fixed-top">
+            <div class="wrapper">
+                <div class="span6 logo">LOGO</div>
+                <div class="span6"><a class="home btn" href="/">Home</a></div>
+            </div>
+        </div>
 
-  <tbody>
-    <% @transactions.each do |transaction| %>
-      <tr>
+    <div class="wrapper">
 
-        <td>
-        <% if transaction.user %>
-          <%= transaction.user.name %>
-        <% else %>
-          <%= puts "unkown user"%>
-        <% end %>
-        </td>
-        <% if transaction %>
-          <td><%= transaction.product %></td>
-          <% unless transaction.price.nil? %>
-            <td>$<%= transaction.price / 100 %>.00</td>
-          <% end %>
-        <% else%>
-          <td>Registered</td>
-        <% end %>
-      </tr>
-    <% end %>
-          <td>$<%= @totalprice / 100 %>.00</td>
-          <td><%= @totalproduct %></td>
-  </tbody>
-</table>
+        <h1>Listing Transactions</h1>
 
-<br>
+        <table>
+          <thead>
+            <tr>
+              <th>Attendee</th>
+              <th>Drink</th>
+              <th>Price</th>
+              <th></th>
+            </tr>
+          </thead>
 
-<%= link_to 'New Transaction', new_transaction_path %>
+          <tbody>
+            <% @transactions.each do |transaction| %>
+              <tr>
+
+                <td>
+                <% if transaction.user %>
+                  <%= transaction.user.name %>
+                <% else %>
+                  <%= puts "unkown user"%>
+                <% end %>
+                </td>
+                <% if transaction %>
+                  <td><%= transaction.product %></td>
+                  <% unless transaction.price.nil? %>
+                    <td>$<%= transaction.price / 100 %></td>
+                  <% end %>
+                <% else%>
+                  <td></td>
+                  <td>Registered</td>
+                <% end %>
+              </tr>
+            <% end %>
+            <td>$<%= @totalprice / 100 %>.00</td>
+            <td><%= @totalproduct %></td>
+          </tbody>
+        </table>
+
+        <br>
+
+        <%= link_to 'New Transaction', new_transaction_path, class: "btn btn-primary btn-large" %>
+
+    </div>
+
+
+</div>
