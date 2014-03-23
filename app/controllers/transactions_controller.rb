@@ -1,5 +1,6 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :verify_authenticity_token
 
   def pos_create
     @user = User.find_by_barcode(params[:barcode])
