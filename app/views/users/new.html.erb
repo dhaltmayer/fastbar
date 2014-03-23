@@ -1,4 +1,11 @@
-<div class="panel panel-default">
+<div class="page page-register">
+
+<div class="nav-fixed-top">
+            <div class="span6 logo">LOGO</div>
+            <div class="span6"><a href="/">Home</a></div>
+        </div>
+
+<div class="panel panel-default panel-register">
   <div class="panel-heading">
     <h1>Sign up</h1>
   </div>
@@ -18,23 +25,25 @@
 
       <div class="form-group">
         <%= f.label :name %><br />
-        <%= f.text_field :name, class: "form-control"%>
+        <%= f.text_field :name, placeholder: "Name", class: "form-control"%>
       </div>
 
       <div class="form-group">
         <%= f.label :email %><br />
-        <%= f.text_field :email, class: "form-control" %>
+        <%= f.text_field :email, placeholder: "Email",class: "form-control" %>
       </div>
 
       <div class="form-group">
         <%= f.label :barcode %><br />
-        <%= f.text_field :barcode, class: "form-control" %>
+        <%= f.text_field :barcode, placeholder: "Barcode", class: "form-control" %>
       </div>
 
       <div class="form-group">
-        <%= f.submit "Sign Up", class: "btn btn-primary" %>
+        <%= f.submit "Sign Up", class: "btn btn-primary btn-large btn-block" %>
       </div>
 
     <% end %>
   </div>
+</div>
+
 </div>
