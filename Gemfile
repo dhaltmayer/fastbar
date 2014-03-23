@@ -8,8 +8,8 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'figaro'
-gem 'devise'
 gem 'protected_attributes'
+gem 'twitter-bootstrap-rails'
 
 group :doc do
   gem 'sdoc', require: false

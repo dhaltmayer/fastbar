@@ -1,5 +1,5 @@
 class AddBarcodeToUsers < ActiveRecord::Migration
   def change
-    add_column :users, :barcode, :integer
+    add_column :users, :barcode, :string
   end
 end

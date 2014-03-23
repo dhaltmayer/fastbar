@@ -1,4 +1,7 @@
 Fastbar::Application.routes.draw do
-  devise_for :users
+  resources :transactions
+
   root "welcome#index"
+
+  resources :users
 end
