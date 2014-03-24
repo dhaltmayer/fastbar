@@ -79,7 +79,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.currentBarCode = @"602652170584";
+    // self.currentBarCode = @"602652170584";
     
     // Toolbar setup
     UIImage *fastbarlogo = [UIImage imageNamed:@"FastBarLogo"];
@@ -100,18 +100,23 @@
     self.toolbar.delegate = self;
     
     self.products = @[
-      [[FBProduct alloc] initWithName:@"Beer" price:100 image:[UIImage imageNamed:@"DrinkBeer"]],
-      [[FBProduct alloc] initWithName:@"Wine" price:100 image:[UIImage imageNamed:@"DrinkWine"]],
-      [[FBProduct alloc] initWithName:@"Rum and Coke" price:100 image:[UIImage imageNamed:@"DrinkRumCoke"]],
+      [[FBProduct alloc] initWithName:@"Beer" price:600 image:[UIImage imageNamed:@"DrinkBeer"]],
+      [[FBProduct alloc] initWithName:@"Wine" price:800 image:[UIImage imageNamed:@"DrinkWine"]],
+      [[FBProduct alloc] initWithName:@"Rum and Coke" price:800 image:[UIImage imageNamed:@"DrinkRumCoke"]],
       
-      [[FBProduct alloc] initWithName:@"Tequila Shot" price:1200 image:[UIImage imageNamed:@"TequilaShot"]],
-      [[FBProduct alloc] initWithName:@"Johnny Walker Blue" price:5500 image:[UIImage imageNamed:@"WalkerBlue"]],
-      [[FBProduct alloc] initWithName:@"Ace of Spades" price:50000 image:[UIImage imageNamed:@"AceSpades"]],
+      [[FBProduct alloc] initWithName:@"Tequila Shot" price:1000 image:[UIImage imageNamed:@"TequilaShot"]],
+      [[FBProduct alloc] initWithName:@"Macallan Shot" price:1500 image:[UIImage imageNamed:@"Mac"]],
+      [[FBProduct alloc] initWithName:@"Ace of Spades" price:30000 image:[UIImage imageNamed:@"AceSpades"]],
       
-      [[FBProduct alloc] initWithName:@"Screwdriver" price:100 image:[UIImage imageNamed:@"DrinkScrewdriver"]],
-      [[FBProduct alloc] initWithName:@"Vodka Cranberry" price:100 image:[UIImage imageNamed:@"DrinkVodkaCran"]],
-      [[FBProduct alloc] initWithName:@"Other" price:100 image:[UIImage imageNamed:@"DrinkGeneric"]]
-    ];
+      [[FBProduct alloc] initWithName:@"Screwdriver" price:800 image:[UIImage imageNamed:@"DrinkScrewdriver"]],
+      [[FBProduct alloc] initWithName:@"Vodka Cranberry" price:800 image:[UIImage imageNamed:@"DrinkVodkaCran"]],
+      [[FBProduct alloc] initWithName:@"Mint Mai Tai" price:800 image:[UIImage imageNamed:@"Mai"]],
+      
+      [[FBProduct alloc] initWithName:@"Cosmopolitan" price:850 image:[UIImage imageNamed:@"Cosmo"]],
+      [[FBProduct alloc] initWithName:@"Water" price:300 image:[UIImage imageNamed:@"Water"]],
+      [[FBProduct alloc] initWithName:@"Other" price:150 image:[UIImage imageNamed:@"DrinkGeneric"]]
+      
+      ];
     self.cart = [[NSMutableArray alloc] init];
     
     // To get keyboard input for barcode scanner
@@ -148,12 +153,21 @@
     if (existing.count == 0) {
         // Not found, we should add
         [self.cart addObject:prod];
+        
+        // Inserts at end
+        [self.tableView beginUpdates];
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:(self.cart.count - 1) inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
+        [self.tableView endUpdates];
     } else {
         FBProduct *p = existing[0];
         p.quantity += 1;
+        
+        // Modifies existing
+        NSInteger row = [self.cart indexOfObject:p];
+        NSIndexPath *ip = [NSIndexPath indexPathForRow:row inSection:0];
+        [self.tableView reloadRowsAtIndexPaths:@[ip] withRowAnimation:UITableViewRowAnimationFade];
     }
     
-    [self.tableView reloadData];
     [self updateUI];
 }
 
@@ -170,8 +184,6 @@
 
 -(void)updateUI
 {
-    [self.clearButton setHidden:(self.currentBarCode == nil)];
-    
     [self.checkoutButton setEnabled:(self.currentBarCode != nil)];
     if (self.currentBarCode) {
         [self.checkoutButton setBackgroundColor:[UIColor colorWithRed:27/255.0 green:117/255.0 blue:187/255.0 alpha:255.0]];
@@ -181,7 +193,7 @@
     
     NSString *btnTitle = [NSString stringWithFormat:@"Add to Tab: $%d", self.totalPrice/100];
     [self.checkoutButton setTitle:btnTitle forState:UIControlStateNormal];
-    [self.checkoutButton setTitle:[NSString stringWithFormat:@"$%d", self.totalPrice/100] forState:UIControlStateDisabled];
+    [self.checkoutButton setTitle:[NSString stringWithFormat:@"Total: $%d", self.totalPrice/100] forState:UIControlStateDisabled];
     
     if (self.currentBarCode) {
         [self.barCodeLabel setText:[NSString stringWithFormat:@"#%@", self.currentBarCode]];
@@ -223,6 +235,17 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    // Animate tap
+    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    UIImageView *imgView = (UIImageView*)[cell viewWithTag:200];
+
+    [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+        [imgView setAlpha:0.5];
+    } completion:^(BOOL finished) {
+        [imgView setAlpha:1.0];
+    }];
+    
+    // Add
     FBProduct *prod = self.products[indexPath.row];
     [self addProductToCart:prod];
 }
@@ -267,7 +290,11 @@
         prod.quantity = 1; // reset to 1
 
         [self.cart removeObjectAtIndex:indexPath.row];
-        [tableView reloadData];
+        
+        [tableView beginUpdates];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        [tableView endUpdates];
+
         [self updateUI];
     }
 }
@@ -290,6 +317,12 @@
     
     [self.cartPopoverController presentPopoverFromRect:cell.frame inView:self.tableView permittedArrowDirections:UIPopoverArrowDirectionRight animated:YES];
 }
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
 
 #pragma mark content changed
 -(void)contentChanged
@@ -319,17 +352,34 @@
 }
 
 #pragma mark actions
+-(void)clearCartInDirection:(UITableViewRowAnimation)dir
+{
+    NSInteger numRemoved = self.cart.count;
+    [self.cart removeAllObjects];
+    
+    [self.tableView beginUpdates];
+    NSMutableArray *ips = [@[] mutableCopy];
+    for (int i=0; i < numRemoved; i++) {
+        [ips addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+    }
+    [self.tableView deleteRowsAtIndexPaths:ips withRowAnimation:dir];
+    [self.tableView endUpdates];
+}
+
 -(void)clearCurrentBarcode:(id)sender
 {
     self.currentBarCode = nil;
     [self.products bk_each:^(FBProduct *p) {
         p.quantity = 1;
     }];
-    [self.cart removeAllObjects];
+    
+    if (sender == self) {
+        [self clearCartInDirection:UITableViewRowAnimationTop];
+    } else {
+        [self clearCartInDirection:UITableViewRowAnimationLeft];
+    }
 
     [self updateUI];
-    
-    [self.tableView reloadData];
 }
 
 -(void)checkout:(id)sender
